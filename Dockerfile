@@ -13,7 +13,7 @@ V2RAY_URL=https://github.com/shadowsocks/v2ray-plugin.git
 RUN set -x \
     && apt-get update \
     && apt-get install --no-install-recommends --no-install-suggests -y curl wget ca-certificates libssl-dev git sudo nano software-properties-common apt-transport-https dirmngr build-essential tar kmod apt-utils gcc g++ make cmake  \
-    && apt-get install --no-install-recommends --no-install-suggests -y apg libcap2-bin lsb-base init-system-helpers libc6 libcork16 libcorkipset1 libev4 libmbedcrypto0 libpcre3 libsodium18 libudns0 autoconf automake libtool gettext pkg-config libmbedtls10 libc-ares2 asciidoc xmlto golang-1.8-src golang-1.8-go
+    && apt-get install --no-install-recommends --no-install-suggests -y apg libcap2-bin lsb-base init-system-helpers libc6 libcork16 libcorkipset1 libev4 libmbedcrypto0 libpcre3 libpcre3-dev libsodium18 libudns0 autoconf automake libtool gettext pkg-config libmbedtls10 libc-ares2 asciidoc xmlto golang-1.8-src golang-1.8-go
     
 RUN set -x \
 # Build shadowsocks-libev
@@ -63,6 +63,7 @@ KCP_MODE=${KCP_MODE:-fast} \
 KCP_CRYPT=${KCP_CRYPT:-salsa20} \
 KCP_MTU=${KCP_MTU:-1350} \
 KCP_DSCP=${KCP_DSCP:-46}
+
 
 # Define v2ray Settings
 #ENV V2_GIT_PATH="https://github.com/v2ray/v2ray-core" \
