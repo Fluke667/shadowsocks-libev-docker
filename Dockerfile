@@ -21,22 +21,8 @@ RUN set -x \
     && ./configure --disable-documentation \
     && make install
 
-    
-RUN set -x \
-    && curl -L -o /tmp/go.sh https://install.direct/go.sh \
-    && chmod +x /tmp/go.sh \
-    && /tmp/go.sh \
-    && mkdir /var/log/v2ray/ \
-    && chmod +x /usr/bin/v2ray/v2ctl \
-    && chmod +x /usr/bin/v2ray/v2ray
-    
-COPY /usr/bin/v2ray/v2ray /usr/bin/v2ray/
-COPY /usr/bin/v2ray/v2ctl /usr/bin/v2ray/
-COPY /usr/bin/v2ray/geoip.dat /usr/bin/v2ray/
-COPY /usr/bin/v2ray/geosite.dat /usr/bin/v2ray/
-COPY config.json /etc/v2ray/config.json
-      
-CMD ["v2ray", "-config=/etc/v2ray/config.json"]
+# Build v2ray plugin    
+
 
 # Define Shadowsocks Settings
 ENV SS_SERVER_ADDR=${SS_SERVER_ADDR:-0.0.0.0} \
