@@ -21,16 +21,14 @@ RUN set -x \
     && cd shadowsocks-libev-${SS_VERSION} \
     && ./configure --disable-documentation \
     && make \
-    && make install
-
+    && make install \
 # Build v2ray plugin    
     && mkdir -p /go/src/github.com/shadowsocks \
     && cd /go/src/github.com/shadowsocks \
     && git clone ${V2RAY_URL} \
     && cd v2ray-plugin \
     && go get -d \
-    && go build
-    
+    && go build \
 # Build kcptun plugin
     && cd /tmp  \
     && wget --no-check-certificate -O kcptun-linux-amd64-${KCP_VERSION}.tar.gz ${KCP_URL} \
@@ -38,7 +36,6 @@ RUN set -x \
     && cd kcptun-linux-amd64-${KCP_VERSION} \
     && mv server_linux_amd64 /usr/local/bin/kcpserver \
     && mv client_linux_amd64 /usr/local/bin/kcpclient \
-    
 # simple-obfs plugin
     && cd /tmp  \
     && git clone ${OBFS_URL} \
@@ -46,7 +43,7 @@ RUN set -x \
     && ./autogen.sh \
     && ./configure \
     && make \
-    && make install 
+    && make install \
 
 # Define Shadowsocks Settings
 ENV SS_SERVER_ADDR=${SS_SERVER_ADDR:-0.0.0.0} \
