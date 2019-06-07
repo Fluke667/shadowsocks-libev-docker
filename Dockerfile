@@ -25,9 +25,46 @@ COPY /usr/bin/v2ray/geoip.dat /usr/bin/v2ray/
 COPY /usr/bin/v2ray/geosite.dat /usr/bin/v2ray/
 COPY config.json /etc/v2ray/config.json
       
-
 CMD ["v2ray", "-config=/etc/v2ray/config.json"]
-    
-      
-      
-     
+
+# Define Shadowsocks Settings
+ENV SS_SERVER_ADDR=${SS_SERVER_ADDR:-0.0.0.0} \
+SS_SERVER_PORT=${SS_SERVER_PORT:-8388} \
+SS_PASSWORD=${SS_PASSWORD:-secret} \
+SS_METHOD=$(SS_METHOD:-aes-256-cfb} \
+SS_TIMEOUT=${SS_TIMEOUT:-300} \
+SS_DNS_ADDR1=$(SS_DNS_ADDR1:-1.1.1.1} \
+SS_DNS_ADDR2=$(SS_DNS_ADDR1:-1.0.0.1}
+
+# Define kcptun Settings
+ENV KCP_PORT=${KCP_PORT:-8399} \
+KCP_KEY=${KCP_KEY:-kcptun} \
+KCP_MODE=${KCP_MODE:-fast} \
+KCP_CRYPT=${KCP_CRYPT:-salsa20} \
+KCP_MTU=${KCP_MTU:-1350} \
+KCP_DSCP=${KCP_DSCP:-46}
+
+USER nobody
+
+# Expose Shadowsocker & KCP port
+EXPOSE ${SS_SERVER_PORT}/tcp ${SS_SERVER_PORT}/udp
+EXPOSE ${KCP_PORT}/udp
+
+# Start Services
+CMD ss-server -s $SS_SERVER_ADDR \
+              -p $SS_SERVER_PORT \
+              -k $SS_PASSWORD \
+              -m $SS_METHOD \
+              -t $SS_TIMEOUT \
+              --fast-open \
+              -d $SS_DNS_ADDR1 \
+              -d $SS_DNS_ADDR2 \
+              -u \
+               && server_linux_amd64 -t 127.0.0.1:$SS_SERVER_PORT \
+               -l :$KCP_PORT \
+               --key $KCP_KEY \
+               --mode $KCP_MODE \
+               --crypt $KCP_CRYPT \
+               --mtu $KCP_MTU \
+               --dscp $KCP_DSCP \
+--nocomp
