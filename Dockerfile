@@ -5,9 +5,9 @@ ENV LINUX_HEADERS_VERSION 4.9.0-9
 
 
 RUN set -x \
-    && deb http://deb.debian.org/debian stretch-backports main \
     && apt-get update \
-    && apt-get install --no-install-recommends --no-install-suggests -y curl wget ca-certificates git sudo nano build-essential tar kmod apt-utils gcc g++ make cmake  \
+    && apt-get install --no-install-recommends --no-install-suggests -y curl wget ca-certificates git sudo nano software-properties-common apt-transport-https dirmngr build-essential tar kmod apt-utils gcc g++ make cmake  \
+    && add-apt-repository deb http://deb.debian.org/debian stretch-backports main \
     && apt-get install --no-install-recommends --no-install-suggests -y apg libcap2-bin lsb-base init-system-helpers libc6 libcork16 libcorkipset1 libev4 libmbedcrypto0 libpcre3 libsodium18 libudns0 autoconf automake libtool gettext pkg-config libmbedtls10 libc-ares2 asciidoc xmlto \
     && apt-get install --no-install-recommends --no-install-suggests -y shadowsocks-libev kcptun simple-obfs
     
