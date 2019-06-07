@@ -9,7 +9,7 @@ RUN set -x \
     && apt-get install --no-install-recommends --no-install-suggests -y curl wget ca-certificates libssl-dev git sudo nano software-properties-common apt-transport-https dirmngr build-essential tar kmod apt-utils gcc g++ make cmake  \
     && add-apt-repository "deb http://deb.debian.org/debian stretch-backports main" \
     && apt-get update \
-    && apt-get install --no-install-recommends --no-install-suggests -y apg libcap2-bin lsb-base init-system-helpers libc6 libcork16 libcorkipset1 libev4 libmbedcrypto0 libpcre3 libsodium18 libudns0 autoconf automake libtool gettext pkg-config libmbedtls10 libc-ares2 asciidoc xmlto \
+    && apt-get install --no-install-recommends --no-install-suggests -y apg libcap2-bin lsb-base init-system-helpers libc6 libcork16 libcorkipset1 libev4 libmbedcrypto0 libpcre3 libsodium18 libudns0 autoconf automake libtool gettext pkg-config libmbedtls10 libc-ares2 asciidoc xmlto golang-1.8-src golang-1.8-go\
     && apt-get install --no-install-recommends --no-install-suggests -y kcptun simple-obfs
     
 # Build shadowsocks-libev
