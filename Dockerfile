@@ -6,12 +6,21 @@ ENV LINUX_HEADERS_VERSION 4.9.0-9
 
 RUN set -x \
     && apt-get update \
-    && apt-get install --no-install-recommends --no-install-suggests -y curl wget ca-certificates git sudo nano software-properties-common apt-transport-https dirmngr build-essential tar kmod apt-utils gcc g++ make cmake  \
+    && apt-get install --no-install-recommends --no-install-suggests -y curl wget ca-certificates libssl-dev git sudo nano software-properties-common apt-transport-https dirmngr build-essential tar kmod apt-utils gcc g++ make cmake  \
     && add-apt-repository "deb http://deb.debian.org/debian stretch-backports main" \
     && apt-get update \
     && apt-get install --no-install-recommends --no-install-suggests -y apg libcap2-bin lsb-base init-system-helpers libc6 libcork16 libcorkipset1 libev4 libmbedcrypto0 libpcre3 libsodium18 libudns0 autoconf automake libtool gettext pkg-config libmbedtls10 libc-ares2 asciidoc xmlto \
-    && apt-get install --no-install-recommends --no-install-suggests -y shadowsocks-libev kcptun simple-obfs
+    && apt-get install --no-install-recommends --no-install-suggests -y kcptun simple-obfs
     
+# Build shadowsocks-libev
+    && cd /tmp  \
+    && git clone https://github.com/shadowsocks/shadowsocks-libev.git  \
+    && cd /tmp/shadowsocks-libev \
+    && git submodule update --init --recursive \
+    && ./autogen.sh \
+    && ./configure --disable-documentation \
+    && make install
+
     
 RUN set -x \
     && curl -L -o /tmp/go.sh https://install.direct/go.sh \
@@ -45,6 +54,19 @@ KCP_MODE=${KCP_MODE:-fast} \
 KCP_CRYPT=${KCP_CRYPT:-salsa20} \
 KCP_MTU=${KCP_MTU:-1350} \
 KCP_DSCP=${KCP_DSCP:-46}
+
+# Define v2ray Settings
+#ENV V2_GIT_PATH="https://github.com/v2ray/v2ray-core" \
+#V2_VERSION="latest" \
+#V2_PORT="8880" \
+#HTTP_PORT="8080" \
+#HTTPS_PORT="8443" \
+#CADDY_PLUGINS="http.forwardproxy" \
+#CADDYPATH="/tmp/" \
+#V2RAY_LOCATION_ASSET="/usr/local/bin/" \
+#V2RAY_LOCATION_CONFIG="/tmp/" \
+#V2RAY_RAY_BUFFER_SIZE="2" \
+#V2RAY_BUF_READV="auto"
 
 USER nobody
 
