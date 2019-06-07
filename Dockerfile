@@ -22,7 +22,12 @@ RUN set -x \
     && make install
 
 # Build v2ray plugin    
-
+    && mkdir -p /go/src/github.com/shadowsocks \
+    && cd /go/src/github.com/shadowsocks \
+    && git clone https://github.com/shadowsocks/v2ray-plugin.git \
+    && cd v2ray-plugin \
+    && go get -d \
+    && go build
 
 # Define Shadowsocks Settings
 ENV SS_SERVER_ADDR=${SS_SERVER_ADDR:-0.0.0.0} \
