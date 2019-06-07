@@ -46,7 +46,7 @@ KCP_DSCP=${KCP_DSCP:-46}
 
 USER nobody
 
-# Expose Shadowsocker & KCP port
+# Expose Shadowsocks & KCP port
 EXPOSE ${SS_SERVER_PORT}/tcp ${SS_SERVER_PORT}/udp
 EXPOSE ${KCP_PORT}/udp
 
