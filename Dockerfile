@@ -2,7 +2,10 @@ FROM debian:stretch-slim
       
 MAINTAINER Fluke667 <Fluke667@gmail.com>        
 ENV LINUX_HEADERS_VERSION 4.9.0-9
-
+ENV SS_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
+KCP_URL=https://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
+OBFS_URL=https://github.com/shadowsocks/simple-obfs.git \
+V2RAY_URL=https://github.com/shadowsocks/v2ray-plugin.git
 
 RUN set -x \
     && apt-get update \
@@ -10,24 +13,40 @@ RUN set -x \
     && add-apt-repository "deb http://deb.debian.org/debian stretch-backports main" \
     && apt-get update \
     && apt-get install --no-install-recommends --no-install-suggests -y apg libcap2-bin lsb-base init-system-helpers libc6 libcork16 libcorkipset1 libev4 libmbedcrypto0 libpcre3 libsodium18 libudns0 autoconf automake libtool gettext pkg-config libmbedtls10 libc-ares2 asciidoc xmlto golang-1.8-src golang-1.8-go\
-    && apt-get install --no-install-recommends --no-install-suggests -y kcptun simple-obfs
     
 # Build shadowsocks-libev
     && cd /tmp  \
-    && git clone https://github.com/shadowsocks/shadowsocks-libev.git  \
-    && cd /tmp/shadowsocks-libev \
-    && git submodule update --init --recursive \
-    && ./autogen.sh \
+    && wget --no-check-certificate -O shadowsocks-libev-${SS_VERSION}.tar.gz ${SS_URL} \
+    && tar zxf shadowsocks-libev-${SS_VERSION}.tar.gz \
+    && cd shadowsocks-libev-${SS_VERSION} \
     && ./configure --disable-documentation \
+    && make \
     && make install
 
 # Build v2ray plugin    
     && mkdir -p /go/src/github.com/shadowsocks \
     && cd /go/src/github.com/shadowsocks \
-    && git clone https://github.com/shadowsocks/v2ray-plugin.git \
+    && git clone ${V2RAY_URL} \
     && cd v2ray-plugin \
     && go get -d \
     && go build
+    
+# Build kcptun plugin
+    && cd /tmp  \
+    && wget --no-check-certificate -O kcptun-linux-amd64-${KCP_VERSION}.tar.gz ${KCP_URL} \
+    && tar zxf kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
+    && cd kcptun-linux-amd64-${KCP_VERSION} \
+    && mv server_linux_amd64 /usr/local/bin/kcpserver \
+    && mv client_linux_amd64 /usr/local/bin/kcpclient \
+    
+# simple-obfs plugin
+    && cd /tmp  \
+    && git clone ${OBFS_URL} \
+    && git submodule update --init --recursive \
+    && ./autogen.sh \
+    && ./configure \
+    && make \
+    && make install 
 
 # Define Shadowsocks Settings
 ENV SS_SERVER_ADDR=${SS_SERVER_ADDR:-0.0.0.0} \
