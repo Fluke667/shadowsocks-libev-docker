@@ -15,24 +15,9 @@ V2RAY_URL=https://github.com/shadowsocks/v2ray-plugin.git
 RUN set -x \
     && apt-get update \
     && apt-get install --no-install-recommends --no-install-suggests -y curl wget ca-certificates libssl-dev git sudo nano software-properties-common apt-transport-https dirmngr build-essential tar kmod apt-utils gcc g++ make cmake  \
-    && apt-get install --no-install-recommends --no-install-suggests -y apg libcap2-bin lsb-base init-system-helpers libc6 libcork16 libcorkipset1 libev4 libev-dev libmbedcrypto0 libmbedtls-dev libpcre3 libpcre3-dev libsodium18 libsodium-dev libudns0 autoconf automake libtool gettext pkg-config libmbedtls10 libmbedx509-0 libc-ares2 libc-ares-dev asciidoc xmlto 
+    && apt-get install --no-install-recommends --no-install-suggests -y apg libcap2-bin lsb-base init-system-helpers libc6 libcork16 libcorkipset1 libev4 libev-dev libmbedcrypto0 libmbedtls-dev libpcre3 libpcre3-dev libsodium18 libsodium-dev libudns0 autoconf automake libtool gettext pkg-config libmbedtls10 libmbedx509-0 libc-ares2 libc-ares-dev asciidoc xmlto golang-1.11-go golang-1.11-src
     
-RUN set -x \
-# install golang
-    && cd /tmp  \
-    && curl -L "https://dl.google.com/go/go1.10.1.linux-amd64.tar.gz"  | tar -C /usr/local -xz; \
-    && mkdir -p "$GOPATH/src" "$GOPATH/bin" \
-    && chmod -R 777 "$GOPATH"; \
-    && go version; \
-    && curl https://raw.githubusercontent.com/golang/dep/master/install.sh \
-       --output /tmp/install-dep.sh \
-      --silent \
-    && chmod a+x /tmp/install-dep.sh \
-    && /tmp/install-dep.sh \
-    && rm /tmp/install-dep.sh \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    && go get -u golang.org/x/lint/golint
+
 # Build shadowsocks-libev
 RUN set -x \
     && cd /tmp  \
