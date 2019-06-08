@@ -24,30 +24,34 @@ RUN set -x \
     && mkdir -p "$GOPATH/src" "$GOPATH/bin" \
     && chmod -R 777 "$GOPATH"; \
     && go version; \
-    && curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh; \
+    && curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh;
 # Build shadowsocks-libev
+RUN set -x \
     && cd /tmp  \
     && wget --no-check-certificate -O shadowsocks-libev-${SS_VERSION}.tar.gz ${SS_URL} \
     && tar zxf shadowsocks-libev-${SS_VERSION}.tar.gz \
     && cd shadowsocks-libev-${SS_VERSION} \
     && ./configure --disable-documentation \
     && make \
-    && make install \
-# Build v2ray plugin    
+    && make install
+# Build v2ray plugin
+RUN set -x \
     && mkdir -p /go/src/github.com/shadowsocks \
     && cd /go/src/github.com/shadowsocks \
     && git clone ${V2RAY_URL} \
     && cd v2ray-plugin \
     && go get -d \
-    && go build \
+    && go build
 # Build kcptun plugin
+RUN set -x \
     && cd /tmp  \
     && wget --no-check-certificate -O kcptun-linux-amd64-${KCP_VERSION}.tar.gz ${KCP_URL} \
     && tar zxf kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
     && cd kcptun-linux-amd64-${KCP_VERSION} \
     && mv server_linux_amd64 /usr/local/bin/kcpserver \
-    && mv client_linux_amd64 /usr/local/bin/kcpclient \
+    && mv client_linux_amd64 /usr/local/bin/kcpclient
 # simple-obfs plugin
+RUN set -x \
     && cd /tmp  \
     && git clone ${OBFS_URL} \
     && cd simple-obfs \
