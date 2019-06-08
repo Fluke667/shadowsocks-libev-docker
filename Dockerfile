@@ -5,6 +5,8 @@ ARG TIMEZONE=Europe/Berlin
 ENV LINUX_HEADERS_VERSION 4.9.0-9
 ENV SS_VERSION=3.2.0
 ENV KCP_VERSION=20190515
+ENV GOPATH /go
+ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 ENV SS_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
 KCP_URL=https://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
 OBFS_URL=https://github.com/shadowsocks/simple-obfs.git \
@@ -16,6 +18,12 @@ RUN set -x \
     && apt-get install --no-install-recommends --no-install-suggests -y apg libcap2-bin lsb-base init-system-helpers libc6 libcork16 libcorkipset1 libev4 libev-dev libmbedcrypto0 libmbedtls-dev libpcre3 libpcre3-dev libsodium18 libsodium-dev libudns0 autoconf automake libtool gettext pkg-config libmbedtls10 libmbedx509-0 libc-ares2 libc-ares-dev asciidoc xmlto 
     
 RUN set -x \
+# install golang
+    && cd /tmp  \
+    && curl -L "https://dl.google.com/go/go1.10.1.linux-amd64.tar.gz"  | tar -C /usr/local -xz; \
+    && mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"; \
+    && go version; \
+    && curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh; \
 # Build shadowsocks-libev
     && cd /tmp  \
     && wget --no-check-certificate -O shadowsocks-libev-${SS_VERSION}.tar.gz ${SS_URL} \
@@ -46,8 +54,6 @@ RUN set -x \
     && ./configure \
     && make \
     && make install \
-# install golang
-    && curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 
 # Define Shadowsocks Settings
 ENV SS_SERVER_ADDR=${SS_SERVER_ADDR:-0.0.0.0} \
