@@ -24,7 +24,7 @@ RUN set -x \
     && mkdir -p "$GOPATH/src" "$GOPATH/bin" \
     && chmod -R 777 "$GOPATH"; \
     && go version; \
-    && curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh;
+    && wget -O - https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 # Build shadowsocks-libev
 RUN set -x \
     && cd /tmp  \
