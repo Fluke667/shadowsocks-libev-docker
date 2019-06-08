@@ -1,6 +1,4 @@
 FROM debian:stretch-slim   
-RUN echo 'deb http://deb.debian.org/debian stretch-backports main' > /etc/apt/sources.list.d/backports.list
-
 MAINTAINER Fluke667 <Fluke667@gmail.com>
 ARG TIMEZONE=Europe/Berlin
 ENV LINUX_HEADERS_VERSION 4.9.0-9
