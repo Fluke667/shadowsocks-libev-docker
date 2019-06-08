@@ -21,7 +21,8 @@ RUN set -x \
 # install golang
     && cd /tmp  \
     && curl -L "https://dl.google.com/go/go1.10.1.linux-amd64.tar.gz"  | tar -C /usr/local -xz; \
-    && mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"; \
+    && mkdir -p "$GOPATH/src" "$GOPATH/bin" 
+    && chmod -R 777 "$GOPATH"; \
     && go version; \
     && curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh; \
 # Build shadowsocks-libev
