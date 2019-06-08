@@ -5,12 +5,10 @@ ARG TIMEZONE=Europe/Berlin
 ENV LINUX_HEADERS_VERSION 4.9.0-9
 ENV SS_VERSION=3.2.0
 ENV KCP_VERSION=20190515
-ENV MBED_VERSION=2.16.1
 ENV SS_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
 KCP_URL=https://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
 OBFS_URL=https://github.com/shadowsocks/simple-obfs.git \
-V2RAY_URL=https://github.com/shadowsocks/v2ray-plugin.git \
-MBED_URL=https://github.com/ARMmbed/mbedtls/archive/mbedtls-${MBED_VERSION}.tar.gz
+V2RAY_URL=https://github.com/shadowsocks/v2ray-plugin.git
 
 RUN set -x \
     && apt-get update \
@@ -26,13 +24,6 @@ RUN set -x \
     && ./configure --disable-documentation \
     && make \
     && make install \
-# Build mbed TLS Library
-    #&& cd /tmp  \
-    #&& wget --no-check-certificate -O mbedtls-${MBED_VERSION}.tar.gz ${MBED_URL} \
-    #&& cd mbedtls-${MBED_VERSION} \
-    #&& cmake -DENABLE_TESTING=Off \
-    #&& make \
-    #&& make install \
 # Build v2ray plugin    
     && mkdir -p /go/src/github.com/shadowsocks \
     && cd /go/src/github.com/shadowsocks \
