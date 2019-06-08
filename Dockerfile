@@ -54,7 +54,7 @@ RUN set -x \
     && ./autogen.sh \
     && ./configure \
     && make \
-    && make install \
+    && make install
 
 # Define Shadowsocks Settings
 ENV SS_SERVER_ADDR=${SS_SERVER_ADDR:-0.0.0.0} \
