@@ -23,7 +23,7 @@ RUN set -x \
 # Build shadowsocks-libev
 RUN set -x \
     && cd /tmp  \
-    && wget shadowsocks-libev-${SS_VERSION}.tar.gz ${SS_URL} \
+    && wget https://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
     && tar zxf shadowsocks-libev-${SS_VERSION}.tar.gz \
     && cd shadowsocks-libev-${SS_VERSION} \
     && ./configure --disable-documentation \
@@ -40,7 +40,7 @@ RUN set -x \
 # Build kcptun plugin
 RUN set -x \
     && cd /tmp  \
-    && wget kcptun-linux-amd64-${KCP_VERSION}.tar.gz ${KCP_URL} \
+    && wget https://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
     && tar zxf kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
     && cd kcptun-linux-amd64-${KCP_VERSION} \
     && mv server_linux_amd64 /usr/local/bin/kcpserver \
