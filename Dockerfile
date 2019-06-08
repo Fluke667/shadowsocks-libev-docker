@@ -5,10 +5,10 @@ ARG TIMEZONE=Europe/Berlin
 ENV LINUX_HEADERS_VERSION 4.9.0-9
 
 ENV SS_VERSION=3.3.0  \
-ARG KCP_VERSION=20190515
+KCP_VERSION=20190515
 
 ENV GOPATH /go  \
-ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
 FROM debian:stretch  \
 RUN echo 'deb http://deb.debian.org/debian stretch-backports main' > /etc/apt/sources.list.d/backports.list
