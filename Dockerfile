@@ -3,12 +3,16 @@ FROM debian:stretch-slim
 MAINTAINER Fluke667 <Fluke667@gmail.com>
 ARG TIMEZONE=Europe/Berlin
 ENV LINUX_HEADERS_VERSION 4.9.0-9
-ARG SS_VERSION=3.3.0
+
+ENV SS_VERSION=3.3.0  \
 ARG KCP_VERSION=20190515
-ENV GOPATH /go
+
+ENV GOPATH /go  \
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
-FROM debian:stretch
+
+FROM debian:stretch  \
 RUN echo 'deb http://deb.debian.org/debian stretch-backports main' > /etc/apt/sources.list.d/backports.list
+
 ENV SS_URL=SS_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
 KCP_URL=https://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
 OBFS_URL=https://github.com/shadowsocks/simple-obfs.git \
