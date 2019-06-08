@@ -24,8 +24,8 @@ RUN set -x \
 RUN set -x \
     && cd /tmp  \
     && wget --no-check-certificate -O https://github.com/shadowsocks/shadowsocks-libev/releases/download/v3.3.0/shadowsocks-libev-3.3.0.tar.gz \
-    && tar zxf shadowsocks-libev-${SS_VERSION}.tar.gz \
-    && cd shadowsocks-libev-${SS_VERSION} \
+    && tar zxf shadowsocks-libev-3.3.0.tar.gz \
+    && cd shadowsocks-libev-3.3.0 \
     && ./configure --disable-documentation \
     && make \
     && make install
