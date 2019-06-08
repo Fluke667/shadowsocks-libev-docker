@@ -1,5 +1,4 @@
-#FROM debian:stretch-slim
-FROM debian:latest    
+FROM debian:stretch-slim   
 
 MAINTAINER Fluke667 <Fluke667@gmail.com>
 ARG TIMEZONE=Europe/Berlin
