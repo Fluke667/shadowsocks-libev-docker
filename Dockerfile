@@ -15,7 +15,7 @@ MBED_URL=https://github.com/ARMmbed/mbedtls/archive/mbedtls-${MBED_VERSION}.tar.
 RUN set -x \
     && apt-get update \
     && apt-get install --no-install-recommends --no-install-suggests -y curl wget ca-certificates libssl-dev git sudo nano software-properties-common apt-transport-https dirmngr build-essential tar kmod apt-utils gcc g++ make cmake  \
-    && apt-get install --no-install-recommends --no-install-suggests -y apg libcap2-bin lsb-base init-system-helpers libc6 libcork16 libcorkipset1 libev4 libmbedcrypto0 libmbedtls-dev libpcre3 libpcre3-dev libsodium18 libudns0 autoconf automake libtool gettext pkg-config libmbedtls10 libmbedx509-0 libc-ares2 asciidoc xmlto golang-1.8-src golang-1.8-go
+    && apt-get install --no-install-recommends --no-install-suggests -y apg libcap2-bin lsb-base init-system-helpers libc6 libcork16 libcorkipset1 libev4 libmbedcrypto0 libmbedtls-dev libpcre3 libpcre3-dev libsodium18 libsodium-dev libudns0 autoconf automake libtool gettext pkg-config libmbedtls10 libmbedx509-0 libc-ares2 asciidoc xmlto golang-1.8-src golang-1.8-go
     
 RUN set -x \
 # Build shadowsocks-libev
