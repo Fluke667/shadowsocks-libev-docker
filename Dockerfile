@@ -49,7 +49,7 @@ RUN set -x \
     && mv server_linux_amd64 /usr/local/bin/kcpserver \
     && mv client_linux_amd64 /usr/local/bin/kcpclient \
 # simple-obfs plugin
-    && cd /tmp  \
+    && cd /  \
     && git clone ${OBFS_URL} \
     && git submodule update --init --recursive \
     && ./autogen.sh \
