@@ -5,9 +5,6 @@ ARG TIMEZONE=Europe/Berlin
 ENV LINUX_HEADERS_VERSION 4.9.0-9
 ENV SS_VERSION=3.2.0
 ENV KCP_VERSION=20190515
-ENV PATH /usr/local/go/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin
-ENV GOPATH /go
-ENV GOROOT /usr/local/go
 ENV SS_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
 KCP_URL=https://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
 OBFS_URL=https://github.com/shadowsocks/simple-obfs.git \
@@ -16,7 +13,7 @@ V2RAY_URL=https://github.com/shadowsocks/v2ray-plugin.git
 RUN set -x \
     && apt-get update \
     && apt-get install --no-install-recommends --no-install-suggests -y curl wget ca-certificates libssl-dev git sudo nano software-properties-common apt-transport-https dirmngr build-essential tar kmod apt-utils gcc g++ make cmake  \
-    && apt-get install --no-install-recommends --no-install-suggests -y apg libcap2-bin lsb-base init-system-helpers libc6 libcork16 libcorkipset1 libev4 libev-dev libmbedcrypto0 libmbedtls-dev libpcre3 libpcre3-dev libsodium18 libsodium-dev libudns0 autoconf automake libtool gettext pkg-config libmbedtls10 libmbedx509-0 libc-ares2 libc-ares-dev asciidoc xmlto golang-1.8-src golang-1.8-go
+    && apt-get install --no-install-recommends --no-install-suggests -y apg libcap2-bin lsb-base init-system-helpers libc6 libcork16 libcorkipset1 libev4 libev-dev libmbedcrypto0 libmbedtls-dev libpcre3 libpcre3-dev libsodium18 libsodium-dev libudns0 autoconf automake libtool gettext pkg-config libmbedtls10 libmbedx509-0 libc-ares2 libc-ares-dev asciidoc xmlto 
     
 RUN set -x \
 # Build shadowsocks-libev
@@ -48,7 +45,9 @@ RUN set -x \
     && ./autogen.sh \
     && ./configure \
     && make \
-    && make install
+    && make install \
+# install golang
+    && curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 
 # Define Shadowsocks Settings
 ENV SS_SERVER_ADDR=${SS_SERVER_ADDR:-0.0.0.0} \
