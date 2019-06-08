@@ -9,7 +9,7 @@ ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 FROM debian:stretch
 RUN echo 'deb http://deb.debian.org/debian stretch-backports main' > /etc/apt/sources.list.d/backports.list
-ENV SS_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v3.3.0/shadowsocks-libev-3.3.0.tar.gz \
+ENV SS_URL=SS_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
 KCP_URL=https://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
 OBFS_URL=https://github.com/shadowsocks/simple-obfs.git \
 V2RAY_URL=https://github.com/shadowsocks/v2ray-plugin.git
@@ -23,9 +23,9 @@ RUN set -x \
 # Build shadowsocks-libev
 RUN set -x \
     && cd /tmp  \
-    && wget --no-check-certificate -O https://github.com/shadowsocks/shadowsocks-libev/releases/download/v3.3.0/shadowsocks-libev-3.3.0.tar.gz \
-    && tar zxf shadowsocks-libev-3.3.0.tar.gz \
-    && cd shadowsocks-libev-3.3.0 \
+    && wget shadowsocks-libev-${SS_VERSION}.tar.gz ${SS_URL} \
+    && tar zxf shadowsocks-libev-${SS_VERSION}.tar.gz \
+    && cd shadowsocks-libev-${SS_VERSION} \
     && ./configure --disable-documentation \
     && make \
     && make install
@@ -40,7 +40,7 @@ RUN set -x \
 # Build kcptun plugin
 RUN set -x \
     && cd /tmp  \
-    && wget --no-check-certificate -O kcptun-linux-amd64-${KCP_VERSION}.tar.gz ${KCP_URL} \
+    && wget kcptun-linux-amd64-${KCP_VERSION}.tar.gz ${KCP_URL} \
     && tar zxf kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
     && cd kcptun-linux-amd64-${KCP_VERSION} \
     && mv server_linux_amd64 /usr/local/bin/kcpserver \
