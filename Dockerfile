@@ -12,7 +12,7 @@ ENV GOPATH /go  \
 PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
 
-ENV SS_URL=SS_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
+ENV SS_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
 KCP_URL=https://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
 OBFS_URL=https://github.com/shadowsocks/simple-obfs.git \
 V2RAY_URL=https://github.com/shadowsocks/v2ray-plugin.git
