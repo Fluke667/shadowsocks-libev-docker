@@ -1,5 +1,6 @@
-FROM debian:stretch-slim
-      
+#FROM debian:stretch-slim
+FROM debian:latest    
+
 MAINTAINER Fluke667 <Fluke667@gmail.com>
 ARG TIMEZONE=Europe/Berlin
 ENV LINUX_HEADERS_VERSION 4.9.0-9
