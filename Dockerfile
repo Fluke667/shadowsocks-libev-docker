@@ -23,7 +23,7 @@ RUN set -x \
 # Build shadowsocks-libev
 RUN set -x \
     && cd /tmp  \
-    && wget --no-check-certificate -O shadowsocks-libev-${SS_VERSION}.tar.gz ${SS_URL} \
+    && wget --no-check-certificate -O ${SS_URL} \
     && tar zxf shadowsocks-libev-${SS_VERSION}.tar.gz \
     && cd shadowsocks-libev-${SS_VERSION} \
     && ./configure --disable-documentation \
