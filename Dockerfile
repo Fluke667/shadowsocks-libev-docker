@@ -24,19 +24,20 @@ RUN set -x \
 RUN set -x \
 # install golang
     && cd /tmp  \
-    && curl -L "https://dl.google.com/go/go1.10.1.linux-amd64.tar.gz"  | tar -C /usr/local -xz; \
+    && curl -L "https://dl.google.com/go/go1.10.1.linux-amd64.tar.gz" \
+    && tar -C /usr/local -xz; \
     && mkdir -p "$GOPATH/src" "$GOPATH/bin" \
     && chmod -R 777 "$GOPATH"; \
     && go version; \
     && curl https://raw.githubusercontent.com/golang/dep/master/install.sh \
-       --output /tmp/install-dep.sh \
+      --output /tmp/install-dep.sh \
       --silent \
     && chmod a+x /tmp/install-dep.sh \
     && /tmp/install-dep.sh \
     && rm /tmp/install-dep.sh \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-&& go get -u golang.org/x/lint/golint
+    && go get -u golang.org/x/lint/golint
 # Build shadowsocks-libev
 RUN set -x \
     && cd /tmp  \
