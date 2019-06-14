@@ -2,10 +2,9 @@ FROM golang:alpine AS golang
 
 ENV V2RAY_PLUGIN_VERSION v1.1.0
 ENV GO111MODULE on
-
-# Define KCPTUN version
 ARG KCP_VERSION=20190515 
 ARG KCP_URL=https://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz
+ENV OBFS_DOWNLOAD_URL https://github.com/shadowsocks/simple-obfs.git
 
 # Build v2ray-plugin
 RUN apk add --no-cache git build-base \
@@ -88,6 +87,7 @@ COPY --from=golang /go/src/github.com/shadowsocks/v2ray-plugin/v2ray-plugin /usr
     && apk add --no-cache --virtual .run-deps $runDeps \
     && apk del .build-deps \
     && rm -rf /tmp/* \
+               /var/cache/apk/*
 
 
 
