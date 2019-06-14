@@ -69,10 +69,8 @@ RUN set -ex \
 
 
 # Build kcptun
-    && curl -sSLO ${KCP_URL} \
-    && tar -zxf kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
-    && mv server_linux_amd64 /usr/bin/kcpserver \
-    && mv client_linux_amd64 /usr/bin/kcpclient \
+     && curl -sSL ${KCP_URL} | tar xz server_linux_amd64 \
+     && mv server_linux_amd64 /usr/bin/ \
                
 # Build simple-obfs
     && cd /tmp \
