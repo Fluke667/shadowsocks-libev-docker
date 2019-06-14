@@ -77,11 +77,11 @@ RUN set -ex \
 # Build simple-obfs
     && cd /tmp \
     && git clone ${OBFS_URL} \
-    && (cd simple-obfs \
+    && cd simple-obfs \
     && git submodule update --init --recursive \
     && ./autogen.sh \
     && ./configure --disable-documentation \
-    && make install) 
+    && make install
 
 
 # Copy v2ray-plugin
