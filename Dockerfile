@@ -5,8 +5,8 @@ ENV LINUX_HEADERS_VERSION 4.9.0-9
 
 ENV SS_VERSION=3.3.0  \
 KCP_VERSION=20190515 \
-ENV GOPATH=/usr/local/goprojects \
-ENV GOROOT=/usr/local/go
+GOPATH=/usr/local/goprojects \
+GOROOT=/usr/local/go
 
 
 ENV SS_URL=http://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
