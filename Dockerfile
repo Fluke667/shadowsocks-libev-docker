@@ -21,7 +21,7 @@ RUN set -x \
     && cd /tmp  \
     && wget https://dl.google.com/go/go1.12.6.linux-amd64.tar.gz \
     && tar -xvf go1.12.6.linux-amd64.tar.gz \
-    && mv go /usr/local \
+    && mv /tmp/go /usr/local \
     && go version \
     && go env \
     && chmod -R 777 /usr/local/go \
