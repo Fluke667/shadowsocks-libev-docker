@@ -4,7 +4,7 @@ ENV V2RAY_PLUGIN_VERSION v1.1.0
 ENV GO111MODULE on
 ARG KCP_VERSION=20190515 
 ARG KCP_URL=https://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz
-ENV OBFS_DOWNLOAD_URL https://github.com/shadowsocks/simple-obfs.git
+ENV OBFS_URL https://github.com/shadowsocks/simple-obfs.git
 
 # Build v2ray-plugin
 RUN apk add --no-cache git build-base \
@@ -88,9 +88,15 @@ COPY --from=golang /go/src/github.com/shadowsocks/v2ray-plugin/v2ray-plugin /usr
     && apk del .build-deps \
     && rm -rf /tmp/* \
                /var/cache/apk/*
-
-
-
+               
+# Build simple-obfs
+    && cd /tmp \
+    && git clone ${OBFS_URL} \
+    && (cd simple-obfs \
+    && git submodule update --init --recursive \
+    && ./autogen.sh \
+    && ./configure --disable-documentation \
+    && make install) 
 
 
 # Shadowsocks environment variables
