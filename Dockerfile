@@ -23,7 +23,7 @@ RUN set -x \
 RUN set -x \
 # install golang
     && cd /tmp  \
-    && wget https://dl.google.com/go/go1.12.6.linux-amd64.tar.gz \
+    && wget http://dl.google.com/go/go1.12.6.linux-amd64.tar.gz \
     && tar -xvf go1.12.6.linux-amd64.tar.gz \
     && mv go /usr/local \
     && go version \
