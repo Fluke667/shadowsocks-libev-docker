@@ -9,10 +9,6 @@ GOPATH=/usr/local/goprojects \
 GOROOT=/usr/local/go \
 PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
-ENV SS_URL=http://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
-KCP_URL=http://github.com/xtaci/kcptun/releases/download/v20190515/kcptun-linux-amd64-20190515.tar.gz \
-OBFS_URL=http://github.com/shadowsocks/simple-obfs.git \
-V2RAY_URL=http://github.com/shadowsocks/v2ray-plugin.git
 
 RUN set -x \
     && apt-get update \
@@ -23,7 +19,7 @@ RUN set -x \
 RUN set -x \
 # install golang
     && cd /tmp  \
-    && wget http://dl.google.com/go/go1.12.6.linux-amd64.tar.gz \
+    && wget https://dl.google.com/go/go1.12.6.linux-amd64.tar.gz \
     && tar -xvf go1.12.6.linux-amd64.tar.gz \
     && mv go /usr/local \
     && go version \
@@ -40,7 +36,7 @@ RUN set -x \
     && sleep 30 \
 # Build shadowsocks-libev
     && cd /tmp  \
-    && wget http://github.com/shadowsocks/shadowsocks-libev/releases/download/v3.2.5/shadowsocks-libev-3.2.5.tar.gz \
+    && wget https://github.com/shadowsocks/shadowsocks-libev/releases/download/v3.2.5/shadowsocks-libev-3.2.5.tar.gz \
     && tar zxf shadowsocks-libev-3.2.5.tar.gz \
     && cd shadowsocks-libev-3.2.5 \
     && ./configure --disable-documentation \
@@ -50,14 +46,14 @@ RUN set -x \
 # Build v2ray plugin
     && mkdir -p /go/src/github.com/shadowsocks \
     && cd /go/src/github.com/shadowsocks \
-    && git clone http://github.com/shadowsocks/v2ray-plugin.git \
+    && git clone https://github.com/shadowsocks/v2ray-plugin.git \
     && cd v2ray-plugin \
     && go get -d \
     && go build \
     && sleep 30 \
 # Build kcptun plugin
     && cd /tmp  \
-    && wget http://github.com/xtaci/kcptun/releases/download/v20190515/kcptun-linux-amd64-20190515.tar.gz \
+    && wget https://github.com/xtaci/kcptun/releases/download/v20190515/kcptun-linux-amd64-20190515.tar.gz \
     && tar zxf kcptun-linux-amd64-20190515.tar.gz \
     && cd kcptun-linux-amd64-20190515 \
     && mv server_linux_amd64 /usr/local/bin/kcpserver \
@@ -65,7 +61,7 @@ RUN set -x \
     && sleep 30 \
 # simple-obfs plugin
     && cd /tmp  \
-    && git clone http://github.com/shadowsocks/simple-obfs.git \
+    && git clone https://github.com/shadowsocks/simple-obfs.git \
     && cd simple-obfs \
     && ./configure \
     && make \
