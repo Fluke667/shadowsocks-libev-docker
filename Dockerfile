@@ -29,6 +29,7 @@ RUN set -ex \
     && apk add --no-cache --virtual .build-deps \
                autoconf \
                curl \
+               wget \
                automake \
                build-base \
                libev-dev \
@@ -69,7 +70,7 @@ RUN set -ex \
 
 
 # Build kcptun
-     && curl -sSL ${KCP_URL} \
+     && wget ${KCP_URL} \
      && tar xz server_linux_amd64 \
      && mv server_linux_amd64 /usr/bin/ \
                
