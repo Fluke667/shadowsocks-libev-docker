@@ -86,7 +86,7 @@ RUN set -ex \
                
 # Build simple-obfs
     && cd /tmp \
-    && git clone ${OBFS_URL} \
+    && git clone https://github.com/shadowsocks/simple-obfs.git \
     && cd simple-obfs \
     && git submodule update --init --recursive \
     && ./autogen.sh \
