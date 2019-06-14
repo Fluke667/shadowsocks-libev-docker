@@ -71,7 +71,7 @@ RUN set -ex \
 
 # Build kcptun
      && wget ${KCP_URL} \
-     && tar xz server_linux_amd64 \
+     && tar xz kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
      && mv server_linux_amd64 /usr/bin/ \
                
 # Build simple-obfs
