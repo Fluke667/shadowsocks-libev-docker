@@ -6,7 +6,7 @@ ENV LINUX_HEADERS_VERSION 4.9.0-9
 ENV SS_VERSION=3.3.0  \
 KCP_VERSION=20190515
 
-ENV GOPATH /go
+ENV GOPATH /usr/local
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
 
@@ -24,17 +24,19 @@ RUN set -x \
 RUN set -x \
 # install golang
     && cd /tmp  \
-    && curl -L "http://dl.google.com/go/go1.10.1.linux-amd64.tar.gz" \
-    && tar -C /usr/local -xzf go1.10.1.linux-amd64.tar.gz \
-    && mkdir -p "$GOPATH/src" "$GOPATH/bin" \
+    && wget https://dl.google.com/go/go1.12.6.linux-amd64.tar.gz \
+    && tar -xvf go1.12.6.linux-amd64.tar.gz \
+    && mv go /usr/local \
+    && go version \
+    && go env \
     && chmod -R 777 "$GOPATH"; \
-    && go version; \
-    && curl http://raw.githubusercontent.com/golang/dep/master/install.sh \
-      --output /tmp/install-dep.sh \
-      --silent \
-    && chmod a+x /tmp/install-dep.sh \
-    && /tmp/install-dep.sh \
-    && apt-get clean \
+    #&& go version; \
+    #&& curl http://raw.githubusercontent.com/golang/dep/master/install.sh \
+    #  --output /tmp/install-dep.sh \
+    #  --silent \
+    #&& chmod a+x /tmp/install-dep.sh \
+    #&& /tmp/install-dep.sh \
+    #&& apt-get clean \
     #&& go get -u golang.org/x/lint/golint \
     && sleep 30
 # Build shadowsocks-libev
