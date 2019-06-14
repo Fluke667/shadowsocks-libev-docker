@@ -2,7 +2,7 @@ FROM golang:alpine AS golang
 
 ENV V2RAY_PLUGIN_VERSION v1.1.0
 ENV GO111MODULE on
-ARG KCP_VERSION=20190515 
+ARG KCP_VERSION=20190611
 ARG KCP_URL=https://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz
 ENV OBFS_URL https://github.com/shadowsocks/simple-obfs.git
 
@@ -69,12 +69,10 @@ RUN set -ex \
 
 
 # Build kcptun
-    && cd /tmp \
-    && curl -sSL ${KCP_URL} | tar xz server_linux_amd64 \
-    && mv server_linux_amd64 /usr/bin/ \
-    && apk del .build-deps \
-    && rm -rf /tmp/* \
-               /var/cache/apk/* \
+    && curl -sSLO ${KCP_URL} \
+    && tar -zxf kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
+    && mv server_linux_amd64 /usr/bin/kcpserver \
+    && mv client_linux_amd64 /usr/bin/kcpclient \
                
 # Build simple-obfs
     && cd /tmp \
