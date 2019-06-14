@@ -33,47 +33,8 @@ RUN set -x \
     #&& /tmp/install-dep.sh \
     #&& apt-get clean \
     #&& go get -u golang.org/x/lint/golint \
-    && sleep 30 \
-# Build shadowsocks-libev
-    && cd /tmp  \
-    && wget https://github.com/shadowsocks/shadowsocks-libev/releases/download/v3.2.5/shadowsocks-libev-3.2.5.tar.gz \
-    && tar zxf shadowsocks-libev-3.2.5.tar.gz \
-    && cd shadowsocks-libev-3.2.5 \
-    && ./configure --disable-documentation \
-    && make \
-    && make install \
-    && sleep 30 \
-# Build v2ray plugin
-    && mkdir -p /go/src/github.com/shadowsocks \
-    && cd /go/src/github.com/shadowsocks \
-    && git clone https://github.com/shadowsocks/v2ray-plugin.git \
-    && cd v2ray-plugin \
-    && go get -d \
-    && go build \
-    && sleep 30 \
-# Build kcptun plugin
-    && cd /tmp  \
-    && wget https://github.com/xtaci/kcptun/releases/download/v20190515/kcptun-linux-amd64-20190515.tar.gz \
-    && tar zxf kcptun-linux-amd64-20190515.tar.gz \
-    && cd kcptun-linux-amd64-20190515 \
-    && mv server_linux_amd64 /usr/local/bin/kcpserver \
-    && mv client_linux_amd64 /usr/local/bin/kcpclient \
-    && sleep 30 \
-# simple-obfs plugin
-    && cd /tmp  \
-    && git clone https://github.com/shadowsocks/simple-obfs.git \
-    && cd simple-obfs \
-    && ./configure \
-    && make \
-    && make install \
-    && sleep 30 \
-# Cloak plugin
-    && cd /tmp  \
-    && wget https://github.com/cbeuw/Cloak/releases/download/v1.1.1/ck-server-linux-amd64-1.1.1 \
-    && go get github.com/boltdb/bolt \
-    && go get github.com/juju/ratelimit \
-    && go get golang.org/x/crypto/curve25519 \
     && sleep 30
+
 
 
 # Define Shadowsocks Settings
@@ -83,10 +44,9 @@ SS_PASSWORD=${SS_PASSWORD:-secret} \
 SS_METHOD=$(SS_METHOD:-chacha20-ietf-poly1305} \
 SS_TIMEOUT=${SS_TIMEOUT:-300} \
 SS_DNS_ADDR1=$(SS_DNS_ADDR1:-1.1.1.1} \
-SS_DNS_ADDR2=$(SS_DNS_ADDR1:-1.0.0.1}
-
+SS_DNS_ADDR2=$(SS_DNS_ADDR1:-1.0.0.1} \
 # Define kcptun Settings
-ENV KCP_PORT=${KCP_PORT:-8399} \
+KCP_PORT=${KCP_PORT:-8399} \
 KCP_KEY=${KCP_KEY:-kcptun} \
 KCP_MODE=${KCP_MODE:-fast} \
 KCP_CRYPT=${KCP_CRYPT:-salsa20} \
