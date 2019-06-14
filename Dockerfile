@@ -37,9 +37,8 @@ RUN set -x \
     #&& /tmp/install-dep.sh \
     #&& apt-get clean \
     #&& go get -u golang.org/x/lint/golint \
-    && sleep 30
+    && sleep 30 \
 # Build shadowsocks-libev
-RUN set -x \
     && cd /tmp  \
     && wget http://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
     && tar zxf shadowsocks-libev-${SS_VERSION}.tar.gz \
@@ -47,34 +46,31 @@ RUN set -x \
     && ./configure --disable-documentation \
     && make \
     && make install \
-    && sleep 30
+    && sleep 30 \
 # Build v2ray plugin
-RUN set -x \
     && mkdir -p /go/src/github.com/shadowsocks \
     && cd /go/src/github.com/shadowsocks \
     && git clone ${V2RAY_URL} \
     && cd v2ray-plugin \
     && go get -d \
     && go build \
-    && sleep 30
+    && sleep 30 \
 # Build kcptun plugin
-RUN set -x \
     && cd /tmp  \
     && wget http://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
     && tar zxf kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
     && cd kcptun-linux-amd64-${KCP_VERSION} \
     && mv server_linux_amd64 /usr/local/bin/kcpserver \
     && mv client_linux_amd64 /usr/local/bin/kcpclient \
-    && sleep 30
+    && sleep 30 \
 # simple-obfs plugin
-RUN set -x \
     && cd /tmp  \
     && git clone ${OBFS_URL} \
     && cd simple-obfs \
     && ./configure \
     && make \
     && make install \
-    && sleep 30
+    && sleep 30 
 
 # Define Shadowsocks Settings
 ENV SS_SERVER_ADDR=${SS_SERVER_ADDR:-0.0.0.0} \
