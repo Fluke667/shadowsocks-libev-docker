@@ -7,7 +7,7 @@ ENV SS_VERSION=3.3.0  \
 KCP_VERSION=20190515 \
 GOPATH=/usr/local/goprojects \
 GOROOT=/usr/local/go
-
+PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 ENV SS_URL=http://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
 KCP_URL=http://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
