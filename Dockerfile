@@ -10,7 +10,7 @@ GOROOT=/usr/local/go \
 PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 ENV SS_URL=http://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
-KCP_URL=http://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
+KCP_URL=http://github.com/xtaci/kcptun/releases/download/v20190515/kcptun-linux-amd64-20190515.tar.gz \
 OBFS_URL=http://github.com/shadowsocks/simple-obfs.git \
 V2RAY_URL=http://github.com/shadowsocks/v2ray-plugin.git
 
@@ -28,7 +28,7 @@ RUN set -x \
     && mv go /usr/local \
     && go version \
     && go env \
-    && chmod -R 777 "$GOPATH"; \
+    && chmod -R 777 /usr/local/go \
     #&& go version; \
     #&& curl http://raw.githubusercontent.com/golang/dep/master/install.sh \
     #  --output /tmp/install-dep.sh \
@@ -40,9 +40,9 @@ RUN set -x \
     && sleep 30 \
 # Build shadowsocks-libev
     && cd /tmp  \
-    && wget http://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
-    && tar zxf shadowsocks-libev-${SS_VERSION}.tar.gz \
-    && cd shadowsocks-libev-${SS_VERSION} \
+    && wget http://github.com/shadowsocks/shadowsocks-libev/releases/download/v3.2.5/shadowsocks-libev-3.2.5.tar.gz \
+    && tar zxf shadowsocks-libev-3.2.5.tar.gz \
+    && cd shadowsocks-libev-3.2.5 \
     && ./configure --disable-documentation \
     && make \
     && make install \
@@ -50,27 +50,35 @@ RUN set -x \
 # Build v2ray plugin
     && mkdir -p /go/src/github.com/shadowsocks \
     && cd /go/src/github.com/shadowsocks \
-    && git clone ${V2RAY_URL} \
+    && git clone http://github.com/shadowsocks/v2ray-plugin.git \
     && cd v2ray-plugin \
     && go get -d \
     && go build \
     && sleep 30 \
 # Build kcptun plugin
     && cd /tmp  \
-    && wget http://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
-    && tar zxf kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
-    && cd kcptun-linux-amd64-${KCP_VERSION} \
+    && wget http://github.com/xtaci/kcptun/releases/download/v20190515/kcptun-linux-amd64-20190515.tar.gz \
+    && tar zxf kcptun-linux-amd64-20190515.tar.gz \
+    && cd kcptun-linux-amd64-20190515 \
     && mv server_linux_amd64 /usr/local/bin/kcpserver \
     && mv client_linux_amd64 /usr/local/bin/kcpclient \
     && sleep 30 \
 # simple-obfs plugin
     && cd /tmp  \
-    && git clone ${OBFS_URL} \
+    && git clone http://github.com/shadowsocks/simple-obfs.git \
     && cd simple-obfs \
     && ./configure \
     && make \
     && make install \
-    && sleep 30 
+    && sleep 30 \
+# Cloak plugin
+    && cd /tmp  \
+    && wget https://github.com/cbeuw/Cloak/releases/download/v1.1.1/ck-server-linux-amd64-1.1.1 \
+    && go get github.com/boltdb/bolt \
+    && go get github.com/juju/ratelimit \
+    && go get golang.org/x/crypto/curve25519 \
+    && sleep 30 \
+
 
 # Define Shadowsocks Settings
 ENV SS_SERVER_ADDR=${SS_SERVER_ADDR:-0.0.0.0} \
