@@ -10,10 +10,10 @@ ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
 
-ENV SS_URL=https://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
-KCP_URL=https://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
-OBFS_URL=https://github.com/shadowsocks/simple-obfs.git \
-V2RAY_URL=https://github.com/shadowsocks/v2ray-plugin.git
+ENV SS_URL=http://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
+KCP_URL=http://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
+OBFS_URL=http://github.com/shadowsocks/simple-obfs.git \
+V2RAY_URL=http://github.com/shadowsocks/v2ray-plugin.git
 
 RUN set -x \
     && apt-get update \
@@ -24,12 +24,12 @@ RUN set -x \
 RUN set -x \
 # install golang
     && cd /tmp  \
-    && curl -L "https://dl.google.com/go/go1.10.1.linux-amd64.tar.gz" \
+    && curl -L "http://dl.google.com/go/go1.10.1.linux-amd64.tar.gz" \
     && tar -C /usr/local -xzf go1.10.1.linux-amd64.tar.gz \
     && mkdir -p "$GOPATH/src" "$GOPATH/bin" \
     && chmod -R 777 "$GOPATH"; \
     && go version; \
-    && curl https://raw.githubusercontent.com/golang/dep/master/install.sh \
+    && curl http://raw.githubusercontent.com/golang/dep/master/install.sh \
       --output /tmp/install-dep.sh \
       --silent \
     && chmod a+x /tmp/install-dep.sh \
@@ -42,7 +42,7 @@ RUN set -x \
 # Build shadowsocks-libev
 RUN set -x \
     && cd /tmp  \
-    && wget https://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
+    && wget http://github.com/shadowsocks/shadowsocks-libev/releases/download/v${SS_VERSION}/shadowsocks-libev-${SS_VERSION}.tar.gz \
     && tar zxf shadowsocks-libev-${SS_VERSION}.tar.gz \
     && cd shadowsocks-libev-${SS_VERSION} \
     && ./configure --disable-documentation \
@@ -61,7 +61,7 @@ RUN set -x \
 # Build kcptun plugin
 RUN set -x \
     && cd /tmp  \
-    && wget https://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
+    && wget http://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
     && tar zxf kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
     && cd kcptun-linux-amd64-${KCP_VERSION} \
     && mv server_linux_amd64 /usr/local/bin/kcpserver \
@@ -96,7 +96,7 @@ KCP_DSCP=${KCP_DSCP:-46}
 
 
 # Define v2ray Settings
-#ENV V2_GIT_PATH="https://github.com/v2ray/v2ray-core" \
+#ENV V2_GIT_PATH="http://github.com/v2ray/v2ray-core" \
 #V2_VERSION="latest" \
 #V2_PORT="8880" \
 #HTTP_PORT="8080" \
