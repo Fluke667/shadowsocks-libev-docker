@@ -1,4 +1,45 @@
 
+### Shadowsocks over websocket (HTTP)
+
+On your server
+
+```sh
+ss-server -c config.json -p 80 --plugin v2ray-plugin --plugin-opts "server"
+```
+
+On your client
+
+```sh
+ss-local -c config.json -p 80 --plugin v2ray-plugin
+```
+
+### Shadowsocks over websocket (HTTPS)
+
+On your server
+
+```sh
+ss-server -c config.json -p 443 --plugin v2ray-plugin --plugin-opts "server;tls;host=mydomain.me"
+```
+
+On your client
+
+```sh
+ss-local -c config.json -p 443 --plugin v2ray-plugin --plugin-opts "tls;host=mydomain.me"
+```
+
+### Shadowsocks over quic
+
+On your server
+
+```sh
+ss-server -c config.json -p 443 --plugin v2ray-plugin --plugin-opts "server;mode=quic;host=mydomain.me"
+```
+
+On your client
+
+```sh
+ss-local -c config.json -p 443 --plugin v2ray-plugin --plugin-opts "mode=quic;host=mydomain.me"
+```
 
 ## Enable v2ray-plugin
 
