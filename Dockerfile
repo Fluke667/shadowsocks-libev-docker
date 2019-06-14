@@ -77,7 +77,7 @@ RUN set -x \
     && go get github.com/boltdb/bolt \
     && go get github.com/juju/ratelimit \
     && go get golang.org/x/crypto/curve25519 \
-    && sleep 30 \
+    && sleep 30
 
 
 # Define Shadowsocks Settings
