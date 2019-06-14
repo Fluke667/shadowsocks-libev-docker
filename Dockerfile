@@ -3,7 +3,7 @@ FROM golang:alpine AS golang
 ENV V2RAY_PLUGIN_VERSION v1.1.0
 ENV GO111MODULE on
 ARG KCP_VERSION=20190611
-ARG KCP_URL=https://github.com/xtaci/kcptun/releases/download/v${KCP_VERSION}/kcptun-linux-amd64-${KCP_VERSION}.tar.gz
+ARG KCP_URL=https://github.com/xtaci/kcptun.git
 ENV OBFS_URL https://github.com/shadowsocks/simple-obfs.git
 
 # Build v2ray-plugin
@@ -70,9 +70,19 @@ RUN set -ex \
 
 
 # Build kcptun
-     && wget ${KCP_URL} \
-     && tar xz kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
-     && mv server_linux_amd64 /usr/bin/ \
+ && mkdir -p /tmp/repo \
+ && cd /tmp/repo \
+ && git clone https://github.com/xtaci/kcptun.git \
+ && cd kcptun/client \
+ && go build -o ../kcptun-client \
+ && cd ../server \
+ && go build -o ../kcptun-server \
+ && cd .. \
+ && cp kcptun-server /usr/local/bin \
+ && cp kcptun-client /usr/local/bin \
+ && cd / \
+ && go clean \
+ && rm -rf /tmp/repo \
                
 # Build simple-obfs
     && cd /tmp \
