@@ -65,10 +65,8 @@ RUN set -ex \
     && cd / \
     && rm -rf /tmp/build-shadowsocks-libev \
     # Delete dependencies
-    && apk del .build-deps
+    && apk del .build-deps \
 
-# Copy v2ray-plugin
-COPY --from=golang /go/src/github.com/shadowsocks/v2ray-plugin/v2ray-plugin /usr/local/bin
 
 # Build kcptun
     && cd /tmp \
@@ -87,7 +85,7 @@ COPY --from=golang /go/src/github.com/shadowsocks/v2ray-plugin/v2ray-plugin /usr
     && apk add --no-cache --virtual .run-deps $runDeps \
     && apk del .build-deps \
     && rm -rf /tmp/* \
-               /var/cache/apk/*
+               /var/cache/apk/* \
                
 # Build simple-obfs
     && cd /tmp \
@@ -97,6 +95,10 @@ COPY --from=golang /go/src/github.com/shadowsocks/v2ray-plugin/v2ray-plugin /usr
     && ./autogen.sh \
     && ./configure --disable-documentation \
     && make install) 
+
+
+# Copy v2ray-plugin
+COPY --from=golang /go/src/github.com/shadowsocks/v2ray-plugin/v2ray-plugin /usr/local/bin
 
 
 # Shadowsocks environment variables
