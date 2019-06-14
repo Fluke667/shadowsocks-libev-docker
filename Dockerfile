@@ -38,7 +38,7 @@ RUN set -x \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && go get -u golang.org/x/lint/golint \
-    && sleep 3
+    && sleep 30
 # Build shadowsocks-libev
 RUN set -x \
     && cd /tmp  \
@@ -48,7 +48,7 @@ RUN set -x \
     && ./configure --disable-documentation \
     && make \
     && make install \
-    && sleep 3
+    && sleep 30
 # Build v2ray plugin
 RUN set -x \
     && mkdir -p /go/src/github.com/shadowsocks \
@@ -57,7 +57,7 @@ RUN set -x \
     && cd v2ray-plugin \
     && go get -d \
     && go build \
-    && sleep 3
+    && sleep 30
 # Build kcptun plugin
 RUN set -x \
     && cd /tmp  \
@@ -66,7 +66,7 @@ RUN set -x \
     && cd kcptun-linux-amd64-${KCP_VERSION} \
     && mv server_linux_amd64 /usr/local/bin/kcpserver \
     && mv client_linux_amd64 /usr/local/bin/kcpclient \
-    && sleep 3
+    && sleep 30
 # simple-obfs plugin
 RUN set -x \
     && cd /tmp  \
@@ -75,7 +75,7 @@ RUN set -x \
     && ./configure \
     && make \
     && make install \
-    && sleep 3
+    && sleep 30
 
 # Define Shadowsocks Settings
 ENV SS_SERVER_ADDR=${SS_SERVER_ADDR:-0.0.0.0} \
