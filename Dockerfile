@@ -55,10 +55,11 @@ RUN apk upgrade \
     && tar -zxf kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
     && mv server_linux_amd64 /usr/bin/kcpserver \
     && mv client_linux_amd64 /usr/bin/kcpclient \
-    # Cloak
+    # Cloak Plugin
     && git clone ${PLUGIN_CLOAK_DOWNLOAD_URL} /etc/cloak \
     && cd /etc/cloak \
     && make server \
+    # Cloak Plugin
     && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
     && echo ${TZ} > /etc/timezone \
     && adduser -h /tmp -s /sbin/nologin -S -D -H shadowsocks \
