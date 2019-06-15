@@ -29,6 +29,7 @@ RUN apk upgrade \
 	nano \
 	go \
 	musl-dev \
+	gcc \
         c-ares-dev \
         libev-dev \
         libtool \
@@ -38,7 +39,7 @@ RUN apk upgrade \
         tar \
         git \
 	nodejs \
-	nodejs-npm \
+	npm \
     && curl -sSL ${LINUX_HEADERS_DOWNLOAD_URL} > /linux-headers-4.4.6-r2.apk \
     && apk add --virtual .build-deps-kernel /linux-headers-4.4.6-r2.apk \
     && git clone ${SS_DOWNLOAD_URL} \
