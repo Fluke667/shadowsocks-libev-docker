@@ -85,10 +85,11 @@ RUN set -ex \
  && rm -rf /tmp/repo \
                
 # Build simple-obfs
-    && cd /tmp \
+    && mkdir -p /tmp/simple \
+    && cd /tmp/simple \
     && git clone https://github.com/shadowsocks/simple-obfs.git \
     && cd simple-obfs \
-    && git submodule update --init --recursive \
+    #&& git submodule update --init --recursive \
     && ./autogen.sh \
     && ./configure --disable-documentation \
     && make install
