@@ -56,6 +56,9 @@ RUN apk upgrade \
     && mv server_linux_amd64 /usr/bin/kcpserver \
     && mv client_linux_amd64 /usr/bin/kcpclient \
     # Cloak Plugin
+    && go get go.etcd.io/bbolt/... \
+    && go get github.com/juju/ratelimit \
+    && go get golang.org/x/crypto/curve25519 \
     && git clone ${PLUGIN_CLOAK_DOWNLOAD_URL} /etc/cloak \
     && cd /etc/cloak \
     && make server \
