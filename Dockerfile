@@ -17,7 +17,7 @@ ENV KCP_DOWNLOAD_URL https://github.com/xtaci/kcptun/releases/download/v${KCP_VE
 ENV PLUGIN_OBFS_DOWNLOAD_URL https://github.com/shadowsocks/simple-obfs.git
 ENV PLUGIN_V2RAY_DOWNLOAD_URL https://github.com/shadowsocks/v2ray-plugin/releases/download/v1.0/v2ray-plugin-linux-amd64-8cea1a3.tar.gz
 ENV PLUGIN_CLOAK_DOWNLOAD_URL https://github.com/cbeuw/cloak.git
-ENV LINUX_HEADERS_DOWNLOAD_URL=http://dl-cdn.alpinelinux.org/alpine/v3.7/main/x86_64/linux-headers-4.4.6-r2.apk
+ENV LINUX_HEADERS_DOWNLOAD_URL=http://dl-cdn.alpinelinux.org/alpine/v3.9/main/x86_64/linux-headers-4.18.13-r1.apk
 
 RUN apk upgrade \
     && apk add bash tzdata rng-tools runit \
@@ -40,8 +40,8 @@ RUN apk upgrade \
         git \
 	nodejs \
 	npm \
-    && curl -sSL ${LINUX_HEADERS_DOWNLOAD_URL} > /linux-headers-4.4.6-r2.apk \
-    && apk add --virtual .build-deps-kernel /linux-headers-4.4.6-r2.apk \
+    && curl -sSL ${LINUX_HEADERS_DOWNLOAD_URL} > /linux-headers-4.18.13-r1.apk \
+    && apk add --virtual .build-deps-kernel /linux-headers-4.18.13-r1.apk \
     && git clone ${SS_DOWNLOAD_URL} \
     && (cd shadowsocks-libev \
     && git checkout tags/${SS_LIBEV_VERSION} -b ${SS_LIBEV_VERSION} \
@@ -79,7 +79,7 @@ RUN apk upgrade \
       $(scanelf --needed --nobanner /usr/bin/ss-* /usr/local/bin/obfs-* \
       | awk '{ gsub(/,/, "\nso:", $2); print "so:" $2 }' \
       | sort -u) \
-    && rm -rf /linux-headers-4.4.6-r2.apk \
+    && rm -rf /linux-headers-4.18.13-r1.apk \
         kcptun-linux-amd64-${KCP_VERSION}.tar.gz \
         shadowsocks-libev \
         simple-obfs \
