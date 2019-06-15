@@ -225,3 +225,16 @@ Check out the 'SEE ALSO' section for the default path of config file.
 # Start the ss-server
 ss-server -c /etc/shadowsocks-libev/config.json
 ....
+
+### Issue a cert for TLS and QUIC
+
+v2ray-plugin will look for TLS certificates signed by [acme.sh](https://github.com/Neilpang/acme.sh) by default.
+Here's some sample commands for issuing a certificate using CloudFlare.
+You can find commands for issuing certificates for other DNS providers at acme.sh.
+
+```sh
+curl https://get.acme.sh | sh
+~/.acme.sh/acme.sh --issue --dns dns_cf -d mydomain.me
+```
+
+Alternatively, you can specify path to your certificates using option `cert` and `key`.
