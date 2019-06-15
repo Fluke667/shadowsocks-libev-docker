@@ -128,7 +128,7 @@ idea-cfb
 seed-cfb
 cast5-cfb
 bf-cfb
-aes-128-gcm *Recommend*
+aes-128-gcm **Recommend**
 aes-192-gcm *Recommend*
 aes-256-gcm *Recommend*
 aes-128-cfb
