@@ -2,11 +2,14 @@ FROM alpine:3.9
 MAINTAINER Fluke667 <Fluke667@gmail.com>
 
 ARG TZ='Europe/Berlin'
-
 ENV TZ ${TZ}
+
 ENV GOROOT /usr/lib/go
 ENV GOPATH /go
 ENV PATH /go/bin:$PATH
+RUN mkdir -p ${GOPATH}/src ${GOPATH}/bin
+WORKDIR $GOPATH
+
 ENV SS_LIBEV_VERSION v3.2.5
 ENV KCP_VERSION 20190424
 ENV SS_DOWNLOAD_URL https://github.com/shadowsocks/shadowsocks-libev.git 
@@ -25,6 +28,7 @@ RUN apk upgrade \
         curl \
 	nano \
 	go \
+	musl-dev \
         c-ares-dev \
         libev-dev \
         libtool \
