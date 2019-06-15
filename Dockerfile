@@ -90,6 +90,6 @@ RUN apk upgrade \
 SHELL ["/bin/bash"]
 
 COPY runit /etc/service
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod a+x *.sh
-ENTRYPOINT ["/entrypoint.sh"]
+COPY entrypoint.sh /runit/entrypoint.sh
+RUN chmod a+x /runit/entrypoint.sh
+ENTRYPOINT ["/runit/entrypoint.sh"]
