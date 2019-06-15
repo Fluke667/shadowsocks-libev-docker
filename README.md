@@ -128,9 +128,9 @@ idea-cfb
 seed-cfb
 cast5-cfb
 bf-cfb
-aes-128-gcm **Recommend**
-aes-192-gcm *Recommend*
-aes-256-gcm *Recommend*
+aes-128-gcm ** Recommend **
+aes-192-gcm ** Recommend **
+aes-256-gcm ** Recommend **
 aes-128-cfb
 aes-192-cfb
 aes-256-cfb
@@ -140,7 +140,7 @@ aes-256-ctr
 camellia-128-cfb
 camellia-192-cfb
 camellia-256-cfb,
-chacha20-ietf-poly1305 *Recommend*
+chacha20-ietf-poly1305 ** Recommend **
 salsa20
 chacha20
 chacha20-ietf.
