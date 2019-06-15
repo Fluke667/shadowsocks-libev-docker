@@ -91,5 +91,5 @@ SHELL ["/bin/bash"]
 
 COPY runit /etc/service
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod 0700 /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
