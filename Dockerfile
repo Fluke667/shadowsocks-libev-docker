@@ -4,6 +4,9 @@ MAINTAINER Fluke667 <Fluke667@gmail.com>
 ARG TZ='Europe/Berlin'
 
 ENV TZ ${TZ}
+ENV GOROOT /usr/lib/go
+ENV GOPATH /go
+ENV PATH /go/bin:$PATH
 ENV SS_LIBEV_VERSION v3.2.5
 ENV KCP_VERSION 20190424
 ENV SS_DOWNLOAD_URL https://github.com/shadowsocks/shadowsocks-libev.git 
@@ -21,6 +24,7 @@ RUN apk upgrade \
         build-base \
         curl \
 	nano \
+	go \
         c-ares-dev \
         libev-dev \
         libtool \
