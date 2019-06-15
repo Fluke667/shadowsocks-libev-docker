@@ -119,6 +119,7 @@ Set the cipher.
 +
 *Shadowsocks-libev* accepts 23 different ciphers:
 +
+```txt
 rc4
 rc4-md5
 rc2-cfb
@@ -143,6 +144,7 @@ chacha20-ietf-poly1305 *Recommend*
 salsa20
 chacha20
 chacha20-ietf.
+```
 +
 If built with PolarSSL or custom OpenSSL libraries, some of
 these ciphers may not work.
