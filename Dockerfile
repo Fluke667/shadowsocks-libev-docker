@@ -86,6 +86,9 @@ RUN apk upgrade \
         v2ray_plugin.tar.gz \
         /etc/service \
         /var/cache/apk/*
+	
+	
+EXPOSE 8388/tcp 8388/udp
 
 SHELL ["/bin/bash"]
 
